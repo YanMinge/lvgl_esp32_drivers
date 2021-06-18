@@ -13,7 +13,7 @@ extern "C" {
  *      INCLUDES
  *********************/
 #include <stdbool.h>
-
+#include "../lv_conf.h"
 #include "lvgl_spi_conf.h"
 #include "lvgl_tft/disp_driver.h"
 #include "lvgl_touch/touch_driver.h"

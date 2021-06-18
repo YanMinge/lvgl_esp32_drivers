@@ -19,9 +19,9 @@
 #include "driver/i2c.h"
 
 #ifdef LV_LVGL_H_INCLUDE_SIMPLE
-#include "src/lv_core/lv_refr.h"
+#include "src/core/lv_refr.h"
 #else
-#include "lvgl/src/lv_core/lv_refr.h"
+#include "lvgl/src/core/lv_refr.h"
 #endif
 
 /*********************
@@ -214,6 +214,11 @@ bool lvgl_spi_driver_init(int host,
     const char *spi_names[] = {
         "SPI_HOST", "", ""
     };
+#elif defined (CONFIG_IDF_TARGET_ESP32S3)
+    assert((SPI_HOST <= host) && (HSPI_HOST >= host));
+    const char *spi_names[] = {
+        "SPI_HOST", "VSPI_HOST", "HSPI_HOST"
+    };
 #endif
 
     ESP_LOGI(TAG, "Configuring SPI host %s (%d)", spi_names[host], host);
@@ -232,7 +237,11 @@ bool lvgl_spi_driver_init(int host,
     };
 
     ESP_LOGI(TAG, "Initializing SPI bus...");
+#if defined (CONFIG_IDF_TARGET_ESP32S3)
+    esp_err_t ret = spi_bus_initialize(host, &buscfg, SPI_DMA_CH_AUTO);
+#else
     esp_err_t ret = spi_bus_initialize(host, &buscfg, dma_channel);
+#endif
     assert(ret == ESP_OK);
 
     return ESP_OK != ret;

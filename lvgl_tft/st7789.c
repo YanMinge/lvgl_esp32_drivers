@@ -62,7 +62,7 @@ void st7789_init(void)
         {ST7789_VCMOFSET, {0x35, 0x3E}, 2},
         {ST7789_CABCCTRL, {0xBE}, 1},
         {ST7789_MADCTL, {0x00}, 1}, // Set to 0x28 if your display is flipped
-        {ST7789_COLMOD, {0x55}, 1},
+        {ST7789_COLMOD, {0x65}, 1},
 
 #if ST7789_INVERT_COLORS == 1
 		{ST7789_INVON, {0}, 0}, // set inverted mode

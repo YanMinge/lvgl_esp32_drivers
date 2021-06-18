@@ -17,6 +17,12 @@ extern "C" {
 /*********************
  *      DEFINES
  *********************/
+#if CONFIG_IDF_TARGET_ESP32S3
+#define SPI_HOST    SPI1_HOST
+#define VSPI_HOST   SPI2_HOST
+#define HSPI_HOST   SPI3_HOST
+#endif
+
 // DISPLAY PINS
 #define DISP_SPI_MOSI CONFIG_LV_DISP_SPI_MOSI
 #if defined (CONFIG_LV_DISPLAY_USE_SPI_MISO)
